@@ -1,3 +1,14 @@
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+  .register('./js/serviceWorker.js')
+  .then(function(registration) {
+    console.log('success!', registration);
+  })
+  .catch(function(err) {
+    console.log('error', err);
+  });
+}
+
 let restaurants,
   neighborhoods,
   cuisines
@@ -178,6 +189,7 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
+  more.tabIndex = '3';
   li.append(more)
 
   return li
