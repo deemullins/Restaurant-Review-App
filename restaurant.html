@@ -34,8 +34,8 @@
   <!-- Beginning main -->
   <main id="maincontent">
     <!-- Beginning map -->
-    <section id="map-container">
-        <div id="map" role="application"></div>
+    <section id="map-container" aria-hidden="true">
+        <div id="map" aria-hidden="true" role="application"></div>
       </section>
     <!-- End map -->
     <!-- Beginning restaurant -->
@@ -66,6 +66,14 @@
   <script type="text/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <!-- Main javascript file -->
   <script type="text/javascript" charset="utf-8" src="js/restaurant_info.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('serviceWorker.js').then(function() {
+        console.log('Service Worker is Registered');
+      });
+    }
+  </script>
   
   <!-- Google Maps -->
  <!--  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_tKbW6A5pQ-eupxI56myUnHLqYCzOjKo&libraries=places&callback=initMap"></script> -->

@@ -1,12 +1,12 @@
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
-  .register('./js/serviceWorker.js')
-  .then(function(registration) {
-    console.log('success!', registration);
-  })
-  .catch(function(err) {
-    console.log('error', err);
-  });
+    .register('/js/serviceWorker.js')
+    .then(function (registration) {
+      console.log('success!', registration);
+    })
+    .catch(function (err) {
+      console.log('error', err);
+    });
 }
 
 let restaurants,
@@ -84,10 +84,10 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
  */
 initMap = () => {
   self.newMap = L.map('map', {
-        center: [40.722216, -73.987501],
-        zoom: 12,
-        scrollWheelZoom: false
-      });
+    center: [40.722216, -73.987501],
+    zoom: 12,
+    scrollWheelZoom: false
+  });
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
     mapboxToken: 'pk.eyJ1IjoibXVsbGluc2RlZSIsImEiOiJjam1waWk4MTMxZnAxM2ttbHI2ZGpzMXBrIn0.kD-Qq0pqZcbRP5aC8t2eNw',
     maxZoom: 18,
@@ -172,6 +172,7 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.alt = restaurant.alt;
   li.append(image);
 
   const name = document.createElement('h1');
@@ -203,21 +204,12 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     // Add marker to the map
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.newMap);
     marker.on("click", onClick);
+
     function onClick() {
       window.location.href = marker.options.url;
     }
     self.markers.push(marker);
   });
 
-} 
-/* addMarkersToMap = (restaurants = self.restaurants) => {
-  restaurants.forEach(restaurant => {
-    // Add marker to the map
-    const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
-    google.maps.event.addListener(marker, 'click', () => {
-      window.location.href = marker.url
-    });
-    self.markers.push(marker);
-  });
-} */
+}
 
